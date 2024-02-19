@@ -34,11 +34,11 @@ jobs:
           docker build --tag $IMAGE_NAME:${{ github.sha }} .
 
       - name: Remove Image
-        if: steps.build.outcome == 'success'
+        if: success()
         run: |
           docker rmi $IMAGE_NAME:${{ github.sha }}
 
       - name: Remove None Image on failure
-        if: steps.build.outcome == 'failure'
+        if: failure()
         run: |
           docker images -a |  grep "<none>" | awk '{print $3}' | xargs docker rmi
