@@ -36,6 +36,11 @@ jobs:
 
       # need push to docker image registry
 
+      - name: Remove Image on success
+        if: success()
+        run: |
+          docker rmi $IMAGE_NAME:${{ github.sha }}
+
       - name: Remove None Image on failure
         if: failure()
         run: |
@@ -53,7 +58,7 @@ jobs:
         with:
           ref: main
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          repository: https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/eunjuukim/simple-k8s.git
+          repository: eunjuukim/simple-k8s
 
 
       - name: setup Kustomize
