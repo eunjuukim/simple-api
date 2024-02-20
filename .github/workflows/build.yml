@@ -51,6 +51,7 @@ jobs:
         with:
           repository: https://github.com/eunjuukim/simple-k8s.git
           ref: main
+          token: ${{ secrets.INFRA_ACCESS_TOKEN }}
 
       - name: setup Kustomize
         uses: imranismail/setup-kustomize@v1
