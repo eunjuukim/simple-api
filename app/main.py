@@ -13,11 +13,6 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
 @app.get("/healthy")
 async def say_hello():
     return {"message": f"This api is healthy"}
