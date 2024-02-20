@@ -44,7 +44,7 @@ jobs:
       - name: Remove None Image on failure
         if: failure()
         run: |
-          docker images -a |  grep "<none>" | awk '{print $3}' | xargs docker rmi
+          docker images -a |  grep "<none>" | awk "{print $3}" | xargs docker rmi
           
 
   deploy:
@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: checkout to infra repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
@@ -71,6 +71,7 @@ jobs:
           kustomize build .
 
       - name: commit changes
+        if: success()
         run: |
           git add app/overlays/dev
           git config --global user.email "developer@email.com"
